@@ -1,7 +1,7 @@
 {
   "mimeType": "model/gltf-binary",
   "validatorVersion": "2.0.0-dev.3.10",
-  "validatedAt": "2026-11-19T08:04:40.579Z",
+  "validatedAt": "2026-11-19T08:14:54.045Z",
   "issues": {
     "numErrors": 0,
     "numWarnings": 0,
@@ -17,6 +17,7 @@
       "EXT_texture_webp",
       "KHR_materials_clearcoat",
       "KHR_materials_emissive_strength",
+      "KHR_materials_specular",
       "KHR_materials_variants",
       "KHR_mesh_quantization"
     ],
@@ -29,7 +30,7 @@
         "pointer": "/buffers/0",
         "mimeType": "application/gltf-buffer",
         "storage": "glb",
-        "byteLength": 224288
+        "byteLength": 223232
       },
       {
         "pointer": "/images/0",

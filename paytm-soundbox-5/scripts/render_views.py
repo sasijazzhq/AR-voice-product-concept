@@ -68,7 +68,6 @@ def studio():
     mat = bpy.data.materials.new("MAT_Studio_Backdrop"); mat.use_nodes = True
     b = mat.node_tree.nodes["Principled BSDF"]
     b.inputs["Base Color"].default_value = (0.78, 0.8, 0.82, 1); b.inputs["Roughness"].default_value = 0.65
-    b.inputs["Emission Color"].default_value = (0.86, 0.88, 0.9, 1); b.inputs["Emission Strength"].default_value = 0.22
     me.materials.append(mat)
     return cyc
 
@@ -87,9 +86,9 @@ def place(o, az, el, dist, target):
     aim(o, target)
 
 cyc = None if MASKS else studio()
-key = area("Key", (0.45, 0.35), 7.0); fill = area("Fill", (0.6, 0.4), 2.2, (0.95, 0.97, 1.0))
-rim = area("Rim", (0.5, 0.12), 6.0); top = area("Top", (0.5, 0.5), 2.5)
-bgl = area("Backdrop", (1.2, 0.6), 9.0)  # lifts the cyclorama so side views do not go grey
+key = area("Key", (0.45, 0.35), float(arg("--key", "5.0"))); fill = area("Fill", (0.6, 0.4), float(arg("--fill", "6.0")), (0.95, 0.97, 1.0))
+rim = area("Rim", (0.5, 0.12), 6.0); top = area("Top", (0.5, 0.5), float(arg("--top", "0.6")))
+bgl = area("Backdrop", (1.0, 0.5), float(arg("--wall", "8.0")))  # lifts the cyclorama so side views do not go grey
 cam_d = bpy.data.cameras.new("Cam"); cam = bpy.data.objects.new("Cam", cam_d); sc.collection.objects.link(cam)
 sc.camera = cam
 
@@ -99,7 +98,7 @@ sc.cycles.device = "CPU"
 sc.cycles.samples = SAMPLES; sc.cycles.use_adaptive_sampling = True; sc.cycles.adaptive_threshold = 0.01
 sc.cycles.use_denoising = True
 sc.cycles.max_bounces = 8; sc.cycles.glossy_bounces = 4; sc.cycles.transparent_max_bounces = 4
-sc.view_settings.view_transform = "Standard"; sc.view_settings.look = "Medium Contrast"; sc.view_settings.exposure = float(arg('--exposure', '-0.9'))
+sc.view_settings.view_transform = arg("--vt", "Standard"); sc.view_settings.look = arg("--look", "Medium Contrast"); sc.view_settings.exposure = float(arg('--exposure', '-1.0'))
 rx, ry = map(int, RES.split("x"))
 sc.render.resolution_x, sc.render.resolution_y = rx, ry; sc.render.resolution_percentage = 100
 sc.render.image_settings.file_format = "PNG"; sc.render.image_settings.color_mode = "RGB"
@@ -121,10 +120,12 @@ def frame_cam(az, el, focal, margin):
 
 def light_rig(az):
     t = CEN
-    place(key, az - 45, 35, 0.55, t); place(fill, az + 70, 15, 0.7, t)
+    place(key, az - 70, 52, 0.55, t); place(fill, az + 70, 15, 0.7, t)
     place(rim, az + 160, 30, 0.5, t); place(top, az, 85, 0.6, t)
-    place(bgl, az, 30, 0.9, t + Vector((0, 0, 0.05)))
-    bgl.rotation_euler = (Vector((math.sin(math.radians(az)), -math.cos(math.radians(az)), 0)) * -1 + Vector((0, 0, -0.35))).to_track_quat("-Z", "Y").to_euler()
+    # one-sided wall light: above the product, facing away from the camera towards the sweep
+    away = Vector((-math.sin(math.radians(az)), math.cos(math.radians(az)), 0))
+    bgl.location = t + Vector((0, 0, 0.28)) + away * 0.05
+    bgl.rotation_euler = (away + Vector((0, 0, -0.25))).to_track_quat("-Z", "Y").to_euler()
     if cyc:
         cyc.rotation_euler = (0, 0, math.radians(az))  # backdrop always behind the product
         cyc.location = (0, 0, 0)

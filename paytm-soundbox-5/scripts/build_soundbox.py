@@ -154,7 +154,7 @@ MAT = {
     "body_fabric": principled("MAT_Body_FabricBlue", COL["fabric_blue_body"], rough=0.38, coat=0.15, coat_rough=0.3),
     "body_white": principled("MAT_Body_IcyWhite", COL["icy_white_body"], rough=0.36, coat=0.15, coat_rough=0.3),
     "plate": principled("MAT_Faceplate_MetallicPaint", COL["bezel_silver"], rough=0.34, metal=0.5, coat=0.5, coat_rough=0.12),
-    "sticker": principled("MAT_QR_Print", (1, 1, 1, 1), rough=0.28, coat=0.5, coat_rough=0.1,
+    "sticker": principled("MAT_QR_Print", (1, 1, 1, 1), rough=0.6, coat=0.0, coat_rough=0.3, spec=0.18,
                           tex=f"qr_sticker_{Q['tex']}.png"),
     "slot": principled("MAT_Speaker_Mesh", hexcol("#141518"), rough=0.75),
     "buttons": principled("MAT_Buttons", (1, 1, 1, 1), rough=0.42, coat=0.3, coat_rough=0.15, tex="button_icons_512.png"),
@@ -407,7 +407,7 @@ def build_sticker():
     ft = bm.faces.new(top)
     sides = [bm.faces.new((bot[k], bot[(k + 1) % n], top[(k + 1) % n], top[k])) for k in range(n)]
     def uvof(o):
-        return ((o.x + Wd / 2) / Wd, (o.y - v0) / Ht)
+        return (min(1.0, max(0.0, (o.x + Wd / 2) / Wd)), min(1.0, max(0.0, (o.y - v0) / Ht)))
     tris = bmesh.ops.triangulate(bm, faces=[ft], quad_method="BEAUTY", ngon_method="BEAUTY")["faces"]
     bm.normal_update()
     for f in tris:
@@ -545,7 +545,7 @@ def build_lcd():
             d = (l.vert.co - o) / MM
             x, y = d.dot(xa), d.dot(ya)
             if f is ft:
-                l[uv_l].uv = (x / w + 0.5, y / h + 0.5)  # frame is part of the texture
+                l[uv_l].uv = (min(1.0, max(0.0, x / w + 0.5)), min(1.0, max(0.0, y / h + 0.5)))
             else:
                 l[uv_l].uv = (0.01, 0.01)   # frame colour
     me = bpy.data.meshes.new("Status_Display"); bm.to_mesh(me); bm.free()

@@ -1,7 +1,7 @@
 {
   "paytm-soundbox-5-hero": {
-    "bytes": 822092,
-    "kib": 802.8,
+    "bytes": 822300,
+    "kib": 803,
     "validator": {
       "errors": 0,
       "warnings": 0,
@@ -27,6 +27,7 @@
     "extensionsUsed": [
       "KHR_materials_clearcoat",
       "KHR_materials_emissive_strength",
+      "KHR_materials_specular",
       "KHR_materials_variants"
     ],
     "textures": [
@@ -37,7 +38,7 @@
           2048,
           2048
         ],
-        "kib": 204.7
+        "kib": 204.8
       },
       {
         "name": "lcd_screen_512",
@@ -98,8 +99,8 @@
     ]
   },
   "paytm-soundbox-5-ar": {
-    "bytes": 240556,
-    "kib": 234.9,
+    "bytes": 239620,
+    "kib": 234,
     "validator": {
       "errors": 0,
       "warnings": 0,
@@ -126,6 +127,7 @@
       "EXT_texture_webp",
       "KHR_materials_clearcoat",
       "KHR_materials_emissive_strength",
+      "KHR_materials_specular",
       "KHR_materials_variants",
       "KHR_mesh_quantization"
     ],
@@ -137,7 +139,7 @@
           1024,
           1024
         ],
-        "kib": 38.7
+        "kib": 38.8
       },
       {
         "name": "lcd_screen_512",
