@@ -601,6 +601,40 @@ def rear_logo():
     return ob
 rear_logo()
 
+# ----------------------------------------------------------------------------- apex seal (body child)
+def apex_seal():
+    """Closes the wedge between the faceplate's top back edge and the body's rounded apex, so the rear
+    slope runs straight up to the frame as in the side reference. Tapers out under the faceplate corners."""
+    V = corners[2][0]                       # front-plane / rear-slope intersection = faceplate top back edge
+    T1, T2 = arc_tangents[2]                # apex arc tangents on the front plane and on the rear slope
+    r = corners[2][1]
+    u1 = (T1 - V).normalized(); u2 = (T2 - V).normalized()
+    Cc = V + (u1 + u2).normalized() * (r / math.sin(math.acos(u1.dot(u2)) / 2))
+    M = Cc + (V - Cc).normalized() * (r - 0.15)          # just inside the body surface
+    Vt = V + (Cc - V).normalized() * 0.25                # keep a hairline parting groove against the plate
+    half = fp["width"] / 2 - fp["corner_radius"]
+    xs = [(-half - 7.0, 0.0), (-half, 1.0), (half, 1.0), (half + 7.0, 0.0)]
+    bm = bmesh.new(); rows = []
+    for x, k in xs:
+        A = M.lerp(Vt, k)
+        rows.append([bm.verts.new(W3(p.x, p.y, x)) for p in (A, T2, T1)])
+    faces = []
+    for a, b_ in zip(rows[:-1], rows[1:]):
+        faces.append(bm.faces.new((a[0], b_[0], b_[1], a[1])))   # top: continues the rear slope
+        faces.append(bm.faces.new((a[2], b_[2], b_[0], a[0])))   # front: against the plate back
+    bm.normal_update()
+    out_dir = Vector((0, n_rear.x + n_front.x, n_rear.y + n_front.y))
+    for f in faces:
+        if f.normal.dot(out_dir) < 0: f.normal_flip()
+    bmesh.ops.triangulate(bm, faces=bm.faces[:])
+    me = bpy.data.meshes.new("Apex_Seal"); bm.to_mesh(me); bm.free()
+    me.materials.append(MAT["body"])
+    for p in me.polygons: p.use_smooth = False
+    ob = new_obj("Apex_Seal", me, body, coll)
+    ob["note"] = "Fills the faceplate/body junction at the apex (reference shows a closed junction)."
+    return ob
+apex_seal()
+
 # ----------------------------------------------------------------------------- metadata, save
 for ob in coll.objects:
     ob["lod"] = LOD
