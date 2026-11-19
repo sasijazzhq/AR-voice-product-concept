@@ -49,6 +49,17 @@ bounding-box centre, because the footprint is offset under the sloping front.
 The remaining outline differences are small: the button bump is slightly larger in the reference, and the model's
 base corners are slightly rounder.
 
+### Visual comparison against the perspective references (final renders)
+
+Checked side by side against the PencilProto front ¾, rear ¾, side and colourway images. Matching: overall form, front
+inclination, rear blend, undercut, grille pattern and position, bezel width, sticker layout and colour split, rear layout.
+Known visible differences:
+
+* The reference bezel is slightly lighter and its outer edge slightly softer in the ¾ view.
+* The reference buttons stand a little prouder of the rear slope.
+* The reference shows a base parting line near the bottom; the model does not.
+* The model's lit side renders slightly darker than the reference under this studio rig.
+
 ## 3. Polygon budget
 
 | Component | Hero tris | AR tris |
@@ -118,7 +129,8 @@ base corners are slightly rounder.
   `PAYTM REALITY LAB DEMO - NOT A PAYMENT CODE`. It is not a `upi://` URI and contains no VPA.
 * The texture carries a visible **DEMO** badge and a red **"SAMPLE QR • NOT PAYABLE"** line.
 * `QR_Panel` has `extras.payable = false` and `extras.qr_payload`.
-* QR decode results (OpenCV) for both texture sizes and the final renders are in `validation/qr_decode.json`.
+* The QR decodes to that exact string from both texture sizes and from the final front, three-quarter and hero
+  renders (OpenCV; results in `validation/qr_decode.json`).
 
 ## 6. Interactive structure (glTF node names → three.js `getObjectByName`)
 

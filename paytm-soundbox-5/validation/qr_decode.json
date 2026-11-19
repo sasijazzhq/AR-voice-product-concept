@@ -1,0 +1,9 @@
+{
+  "textures/qr_sticker_2048.png": "PAYTM REALITY LAB DEMO - NOT A PAYMENT CODE",
+  "textures/qr_sticker_1024.png": "PAYTM REALITY LAB DEMO - NOT A PAYMENT CODE",
+  "renders/front.png": "PAYTM REALITY LAB DEMO - NOT A PAYMENT CODE",
+  "renders/threequarter.png": "PAYTM REALITY LAB DEMO - NOT A PAYMENT CODE",
+  "renders/hero.png": "PAYTM REALITY LAB DEMO - NOT A PAYMENT CODE",
+  "_expected": "PAYTM REALITY LAB DEMO - NOT A PAYMENT CODE",
+  "_is_upi_uri": false
+}
