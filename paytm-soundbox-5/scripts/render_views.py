@@ -87,8 +87,8 @@ def place(o, az, el, dist, target):
 
 cyc = None if MASKS else studio()
 key = area("Key", (0.45, 0.35), float(arg("--key", "5.0"))); fill = area("Fill", (0.6, 0.4), float(arg("--fill", "6.0")), (0.95, 0.97, 1.0))
-rim = area("Rim", (0.5, 0.12), 6.0); top = area("Top", (0.5, 0.5), float(arg("--top", "0.6")))
-bgl = area("Backdrop", (1.0, 0.5), float(arg("--wall", "8.0")))  # lifts the cyclorama so side views do not go grey
+rim = area("Rim", (0.6, 0.4), float(arg("--rim", "2.0"))); top = area("Top", (0.5, 0.5), float(arg("--top", "0.6")))
+bgl = area("Backdrop", (1.0, 0.5), float(arg("--wall", "5.0")))  # lifts the cyclorama so side views do not go grey
 cam_d = bpy.data.cameras.new("Cam"); cam = bpy.data.objects.new("Cam", cam_d); sc.collection.objects.link(cam)
 sc.camera = cam
 
@@ -121,10 +121,10 @@ def frame_cam(az, el, focal, margin):
 def light_rig(az):
     t = CEN
     place(key, az - 70, 52, 0.55, t); place(fill, az + 70, 15, 0.7, t)
-    place(rim, az + 160, 30, 0.5, t); place(top, az, 85, 0.6, t)
+    place(rim, az + 140, 55, 0.6, t); place(top, az, 85, 0.6, t)
     # one-sided wall light: above the product, facing away from the camera towards the sweep
     away = Vector((-math.sin(math.radians(az)), math.cos(math.radians(az)), 0))
-    bgl.location = t + Vector((0, 0, 0.28)) + away * 0.05
+    bgl.location = t + Vector((0, 0, 0.28)) + away * 0.30   # fully behind the product: must not light it directly
     bgl.rotation_euler = (away + Vector((0, 0, -0.25))).to_track_quat("-Z", "Y").to_euler()
     if cyc:
         cyc.rotation_euler = (0, 0, math.radians(az))  # backdrop always behind the product

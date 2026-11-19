@@ -1,7 +1,7 @@
 {
   "paytm-soundbox-5-hero": {
-    "bytes": 822300,
-    "kib": 803,
+    "bytes": 824016,
+    "kib": 804.7,
     "validator": {
       "errors": 0,
       "warnings": 0,
@@ -9,14 +9,14 @@
       "hints": 0
     },
     "issues": [],
-    "triangles": 23032,
-    "vertices": 17779,
-    "draw_calls": 16,
+    "triangles": 23044,
+    "vertices": 17811,
+    "draw_calls": 17,
     "materials": [
       "MAT_QR_Print",
       "MAT_Faceplate_MetallicPaint",
-      "MAT_Contacts_Metal",
       "MAT_Body_Cobalt",
+      "MAT_Contacts_Metal",
       "MAT_Speaker_Mesh",
       "MAT_LCD",
       "MAT_LED_Green",
@@ -80,6 +80,7 @@
     "nodes": [
       "QR_Panel",
       "Front_Faceplate",
+      "Apex_Seal",
       "Rear_Contact_Pads",
       "Rear_Logo",
       "Soundbox_Body",
@@ -99,8 +100,8 @@
     ]
   },
   "paytm-soundbox-5-ar": {
-    "bytes": 239620,
-    "kib": 234,
+    "bytes": 241160,
+    "kib": 235.5,
     "validator": {
       "errors": 0,
       "warnings": 0,
@@ -108,14 +109,14 @@
       "hints": 0
     },
     "issues": [],
-    "triangles": 8988,
-    "vertices": 8032,
-    "draw_calls": 16,
+    "triangles": 9000,
+    "vertices": 8064,
+    "draw_calls": 17,
     "materials": [
       "MAT_QR_Print",
       "MAT_Faceplate_MetallicPaint",
-      "MAT_Contacts_Metal",
       "MAT_Body_Cobalt",
+      "MAT_Contacts_Metal",
       "MAT_Speaker_Mesh",
       "MAT_LCD",
       "MAT_LED_Green",
@@ -181,6 +182,7 @@
     "nodes": [
       "QR_Panel",
       "Front_Faceplate",
+      "Apex_Seal",
       "Rear_Contact_Pads",
       "Rear_Logo",
       "Soundbox_Body",

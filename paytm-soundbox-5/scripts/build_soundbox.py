@@ -153,7 +153,7 @@ MAT = {
     "body": principled("MAT_Body_Cobalt", COL["cobalt_body"], rough=0.38, spec=0.5, coat=0.15, coat_rough=0.3),
     "body_fabric": principled("MAT_Body_FabricBlue", COL["fabric_blue_body"], rough=0.38, coat=0.15, coat_rough=0.3),
     "body_white": principled("MAT_Body_IcyWhite", COL["icy_white_body"], rough=0.36, coat=0.15, coat_rough=0.3),
-    "plate": principled("MAT_Faceplate_MetallicPaint", COL["bezel_silver"], rough=0.34, metal=0.5, coat=0.5, coat_rough=0.12),
+    "plate": principled("MAT_Faceplate_MetallicPaint", COL["bezel_silver"], rough=0.45, metal=0.25, coat=0.25, coat_rough=0.2),
     "sticker": principled("MAT_QR_Print", (1, 1, 1, 1), rough=0.6, coat=0.0, coat_rough=0.3, spec=0.18,
                           tex=f"qr_sticker_{Q['tex']}.png"),
     "slot": principled("MAT_Speaker_Mesh", hexcol("#141518"), rough=0.75),

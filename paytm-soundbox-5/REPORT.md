@@ -8,8 +8,8 @@
 | File | Purpose |
 |---|---|
 | `paytm-soundbox-5.blend` | Editable master (hero LOD). It contains the build script as a text block. Textures are linked relatively from `textures/`. Body colour variants are kept as fake-user materials. |
-| `exports/paytm-soundbox-5-hero.glb` | Web product viewer model, 23,032 tris, PNG textures (2048² QR sticker) |
-| `exports/paytm-soundbox-5-ar.glb` | Mobile AR model, 8,988 tris, WebP textures (1024² QR sticker), quantised geometry |
+| `exports/paytm-soundbox-5-hero.glb` | Web product viewer model, 23,044 tris, PNG textures (2048² QR sticker) |
+| `exports/paytm-soundbox-5-ar.glb` | Mobile AR model, 9,000 tris, WebP textures (1024² QR sticker), quantised geometry |
 | `renders/front.png`, `left.png`, `right.png`, `rear.png`, `top.png`, `threequarter.png` | Six Cycles comparison renders (1600×1200) |
 | `renders/hero.png` | Premium hero render (2400×1600, depth of field) |
 | `renders/contact_sheet.jpg` | All six views on one sheet |
@@ -43,22 +43,22 @@ bounding-box centre, because the footprint is offset under the sloping front.
 
 | View | IoU | Aspect (ref / model) | Mean / p95 outline deviation |
 |---|---|---|---|
-| Right side vs PencilProto `Right.png` | **0.977** | 1.270 / 1.260 | 0.014 H / 0.038 H |
-| Front vs PencilProto `Front.png` | **0.987** | 1.048 / 1.039 | 0.012 H / 0.036 H |
+| Right side vs PencilProto `Right.png` | **0.977** | 1.270 / 1.260 | 0.013 H / 0.031 H |
+| Front vs PencilProto `Front.png` | **0.987** | 1.048 / 1.039 | 0.011 H / 0.026 H |
 
-The remaining outline differences are at the apex, where the reference closes the frame-to-rear-slope junction more
-tightly (≈1.5 mm), and at the button bump, which is slightly larger in the reference.
+The remaining outline differences are small: the button bump is slightly larger in the reference, and the model's
+base corners are slightly rounder.
 
 ## 3. Polygon budget
 
 | Component | Hero tris | AR tris |
 |---|---|---|
-| Soundbox_Body (incl. Rear_Contact_Pads, Rear_Logo) | 9,400 | 3,708 |
+| Soundbox_Body (incl. Rear_Contact_Pads, Rear_Logo, Apex_Seal) | 9,412 | 3,720 |
 | Front_Faceplate (incl. QR_Panel) | 6,462 | 2,334 |
 | Speaker_Region (62 slot walls and floors) | 3,224 | 1,736 |
 | Top_Controls (4 buttons) | 3,360 | 1,040 |
 | Status_Indicator (4 LEDs + LCD) | 586 | 170 |
-| **Total** | **23,032** | **8,988** |
+| **Total** | **23,044** | **9,000** |
 
 * Draw calls: 16 (one per named part, kept separate for interaction).
 * The AR LOD sits slightly below the suggested 10k–30k starting budget. It was refined against visual quality: every
@@ -80,6 +80,9 @@ tightly (≈1.5 mm), and at the button bump, which is slightly larger in the ref
 | 5 | Side-view backdrop went grey | Added a one-sided wall light. Self-illumination on the sweep was tried first and rejected, because it flooded the front face. |
 | 6 | Front label clipped; QR black rendered at about 66 | Moved the key light to 70°/52° off-axis. Made the print matte. Result: QR black is 35, and cyan and navy match their texture values. |
 | 7 | UV float noise (−1e-8) blocked UV quantisation | Clamped the UVs. |
+| 8 | Side views showed a V-notch between the faceplate's top edge and the body's rounded apex; the reference closes this junction | Added `Apex_Seal` (12 tris), which continues the rear slope up to the faceplate's back edge and tapers out under the faceplate corners. |
+| 9 | Three-quarter view: bezel read as chrome (dark on one side, white on the other) | Bezel changed to satin paint (metallic 0.25, roughness 0.45, base `#bfc2c5`). It now renders an even light grey, as in the reference. |
+| 10 | Hard-edged white patch across the top of the frame and cyan band | Cause: the backdrop wall light's emitting side clipped the top-rear of the product. Moved it fully behind the product, and softened and dimmed the rim light. |
 
 ## 5. Textures and materials
 
@@ -91,7 +94,7 @@ tightly (≈1.5 mm), and at the button bump, which is slightly larger in the ref
 
 * **Materials** (glTF metallic-roughness, with `KHR_materials_clearcoat` and `KHR_materials_emissive_strength`):
   * `MAT_Body_Cobalt`: moulded satin plastic, roughness 0.38, light coat
-  * `MAT_Faceplate_MetallicPaint`: metallic 0.5, roughness 0.34, clearcoat 0.5
+  * `MAT_Faceplate_MetallicPaint`: satin metallic paint, metallic 0.25, roughness 0.45, clearcoat 0.25
   * `MAT_QR_Print`: matte print (roughness 0.6, no coat). A glossy laminate was tried first; it reflected the studio sweep and washed the QR modules to grey, so it was dropped.
   * `MAT_Buttons`: atlas with the cobalt or cyan cap colour baked per cell
   * `MAT_Speaker_Mesh`
@@ -115,8 +118,7 @@ tightly (≈1.5 mm), and at the button bump, which is slightly larger in the ref
   `PAYTM REALITY LAB DEMO - NOT A PAYMENT CODE`. It is not a `upi://` URI and contains no VPA.
 * The texture carries a visible **DEMO** badge and a red **"SAMPLE QR • NOT PAYABLE"** line.
 * `QR_Panel` has `extras.payable = false` and `extras.qr_payload`.
-* The QR decodes to that exact string from both texture sizes and from the final front render; OpenCV results are in
-  `validation/qr_decode.json`.
+* QR decode results (OpenCV) for both texture sizes and the final renders are in `validation/qr_decode.json`.
 
 ## 6. Interactive structure (glTF node names → three.js `getObjectByName`)
 
@@ -124,6 +126,7 @@ tightly (≈1.5 mm), and at the button bump, which is slightly larger in the ref
 Ground_Anchor                  root, origin at ground contact (place on the AR hit-test pose)
 ├─ Soundbox_Body               main shell
 │  ├─ Rear_Contact_Pads
+│  ├─ Apex_Seal                closes the faceplate/body junction at the top
 │  └─ Rear_Logo
 ├─ Front_Faceplate             metallic painted frame
 │  └─ QR_Panel                 sticker (userData.payable=false, userData.qr_payload)
@@ -151,12 +154,15 @@ Ground_Anchor                  root, origin at ground contact (place on the AR h
    * The front shows "Paytm" in Inter typeface, not the official logo.
    * The UPI and "Tap & Pay" marks are omitted.
    * Swap in licensed brand artwork via `scripts/make_textures.py` if authorised.
-6. **A faceplate-to-body gap remains at the apex and nose.** Small wedge gaps of ≤2 mm sit under the top and bottom edges of
-   the faceplate. They read as a parting line, but the reference closes the top junction more tightly.
+6. **The faceplate-to-body junction is simplified.** The top junction is closed by a small seal strip rather than a
+   modelled recess, and a small shadow gap (≤2 mm) remains under the faceplate's bottom edge and around its corners. The
+   real part probably seats the plate in a recess; no reference shows that detail.
 7. **There are no baked AO or normal maps.** Lighting relies on the viewer or environment map. For AR, add a contact-shadow
    plane or ground shadow in the app.
 8. Material colours were sampled from rendered marketing images, not measured colour standards.
-9. **Phone performance has not been measured on a device.** WebGL loading was verified in three.js 0.183.2 under headless
+9. **The body's side-edge radius is a compromise.** It is 4.8 mm everywhere. The defocused rear reference suggests the
+   upper rear edges may be softer (roughly 8–10 mm); this could not be measured.
+10. **Phone performance has not been measured on a device.** WebGL loading was verified in three.js 0.183.2 under headless
    Chromium (SwiftShader).
 
 ## 8. Licences and provenance

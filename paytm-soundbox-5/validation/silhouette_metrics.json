@@ -1,10 +1,10 @@
 {
   "right_side_vs_img18": {
-    "iou": 0.9767,
+    "iou": 0.9774,
     "aspect_ref": 1.27,
     "aspect_model": 1.26,
-    "row_extent_dev_mean_H": 0.0135,
-    "row_extent_dev_p95_H": 0.0338
+    "row_extent_dev_mean_H": 0.013,
+    "row_extent_dev_p95_H": 0.0313
   },
   "front_vs_img09": {
     "iou": 0.9872,
