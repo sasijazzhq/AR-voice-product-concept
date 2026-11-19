@@ -1,0 +1,8 @@
+{
+  "three_version": "0.183.2",
+  "browser": "Chromium (Playwright, headless, SwiftShader WebGL)",
+  "note": "validation/threejs_ar_check.png: AR LOD at three angles + hero LOD (bottom right), RoomEnvironment + NeutralToneMapping",
+  "ar": {"found":{"Ground_Anchor":true,"Soundbox_Body":true,"Front_Faceplate":true,"QR_Panel":true,"Speaker_Region":true,"Top_Controls":true,"Status_Indicator":true},"size_mm":[94.4,91,114.4],"min_y":-0.0000024,"tris":8988,"qr_userData":{"qr_payload":"PAYTM REALITY LAB DEMO - NOT A PAYMENT CODE","payable":false,"lod":"ar"},"variants":["Cobalt","Fabric Blue","Icy White"]},
+  "hero": {"found":{"Ground_Anchor":true,"Soundbox_Body":true,"Front_Faceplate":true,"QR_Panel":true,"Speaker_Region":true,"Top_Controls":true,"Status_Indicator":true},"size_mm":[94.4,91,114.4],"min_y":0,"tris":23032,"qr_userData":{"qr_payload":"PAYTM REALITY LAB DEMO - NOT A PAYMENT CODE","payable":false,"lod":"hero"},"variants":["Cobalt","Fabric Blue","Icy White"]},
+  "console_errors": 0
+}

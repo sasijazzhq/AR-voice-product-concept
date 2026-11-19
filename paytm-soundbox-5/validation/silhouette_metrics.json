@@ -1,0 +1,17 @@
+{
+  "right_side_vs_img18": {
+    "iou": 0.9767,
+    "aspect_ref": 1.27,
+    "aspect_model": 1.26,
+    "row_extent_dev_mean_H": 0.0135,
+    "row_extent_dev_p95_H": 0.0338
+  },
+  "front_vs_img09": {
+    "iou": 0.9872,
+    "aspect_ref": 1.0475,
+    "aspect_model": 1.0388,
+    "row_extent_dev_mean_H": 0.0108,
+    "row_extent_dev_p95_H": 0.0264
+  },
+  "_note": "Silhouettes normalised to equal height. IoU 1.0 = identical outline. Deviations in units of overall height H."
+}

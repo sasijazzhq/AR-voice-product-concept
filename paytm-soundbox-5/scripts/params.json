@@ -1,0 +1,218 @@
+{
+  "_note": "All dimensions in millimetres. PROVISIONAL: derived from proportions measured on PencilProto orthographic renders and scaled to an assumed overall height. Not calibrated against a physical unit.",
+  "H": 90.0,
+  "profile_units_H": {
+    "_note": "Side profile in units of overall height H. y = depth from front-most point, z = height. Fitted to the PencilProto right-side orthographic silhouette.",
+    "front_outer_line": {
+      "slope_dy_dz": 0.7536,
+      "y0": -0.1079
+    },
+    "rear_slope_line": {
+      "slope_dy_dz": -1.2492,
+      "y0": 1.9404
+    },
+    "back_y": 1.2626,
+    "undercut_line": {
+      "slope_dy_dz": -1.4499,
+      "y0": 0.1307
+    },
+    "r_undercut_bottom": 0.06,
+    "r_nose": 0.0556,
+    "r_apex": 0.0556,
+    "r_rear": 0.51,
+    "r_back_bottom": 0.06
+  },
+  "body_width": 92.7,
+  "side_fillet": 4.8,
+  "faceplate": {
+    "width": 94.4,
+    "length": 101.0,
+    "thickness": 4.0,
+    "corner_radius": 13.0,
+    "rim_width": 4.8,
+    "pocket_depth": 0.9,
+    "edge_radius": 2.4,
+    "bottom_offset": 1.0,
+    "top_at": "apex_vertex"
+  },
+  "sticker": {
+    "width": 84.2,
+    "height": 90.8,
+    "corner_radius": 7.9,
+    "border": 5.5,
+    "cyan_fraction": 0.56,
+    "card_corner_radius": 4.5,
+    "thickness": 0.35,
+    "gap": 0.3
+  },
+  "speaker_slots": {
+    "length_H": 0.0447,
+    "width_H": 0.0179,
+    "angle_deg": -37.0,
+    "depth": 1.6,
+    "centres_H": [
+      [
+        0.711,
+        0.583
+      ],
+      [
+        0.766,
+        0.583
+      ],
+      [
+        0.628,
+        0.535
+      ],
+      [
+        0.684,
+        0.535
+      ],
+      [
+        0.739,
+        0.535
+      ],
+      [
+        0.794,
+        0.535
+      ],
+      [
+        0.849,
+        0.535
+      ],
+      [
+        0.601,
+        0.488
+      ],
+      [
+        0.656,
+        0.488
+      ],
+      [
+        0.711,
+        0.488
+      ],
+      [
+        0.766,
+        0.488
+      ],
+      [
+        0.822,
+        0.488
+      ],
+      [
+        0.877,
+        0.488
+      ],
+      [
+        0.628,
+        0.44
+      ],
+      [
+        0.684,
+        0.44
+      ],
+      [
+        0.739,
+        0.44
+      ],
+      [
+        0.794,
+        0.44
+      ],
+      [
+        0.849,
+        0.44
+      ],
+      [
+        0.601,
+        0.392
+      ],
+      [
+        0.656,
+        0.392
+      ],
+      [
+        0.711,
+        0.392
+      ],
+      [
+        0.767,
+        0.392
+      ],
+      [
+        0.822,
+        0.392
+      ],
+      [
+        0.877,
+        0.392
+      ],
+      [
+        0.628,
+        0.344
+      ],
+      [
+        0.684,
+        0.344
+      ],
+      [
+        0.739,
+        0.344
+      ],
+      [
+        0.794,
+        0.344
+      ],
+      [
+        0.849,
+        0.344
+      ],
+      [
+        0.711,
+        0.296
+      ],
+      [
+        0.767,
+        0.296
+      ]
+    ]
+  },
+  "controls": {
+    "button_diameter": 8.0,
+    "button_pitch": 10.5,
+    "button_height": 1.8,
+    "row_z_H": 0.757,
+    "lcd_size": [
+      30.0,
+      11.0
+    ],
+    "lcd_z_H": 0.862,
+    "led_z_H": 0.93,
+    "led_diameter": 2.0,
+    "led_x": [
+      13.0,
+      5.5,
+      2.0,
+      -1.5
+    ]
+  },
+  "rear": {
+    "pad_size": [
+      12.0,
+      4.5
+    ],
+    "pad_gap": 2.0,
+    "pad_z": 6.5,
+    "logo_z": 19.0,
+    "logo_height": 5.5
+  },
+  "colours_srgb": {
+    "cobalt_body": "#33587f",
+    "fabric_blue_body": "#3a56a6",
+    "icy_white_body": "#e6e8ec",
+    "sticker_cyan": "#21c4f5",
+    "sticker_navy": "#27377f",
+    "bezel_silver": "#d3d5d8",
+    "button_cyan": "#2bb3e6"
+  }
+}
